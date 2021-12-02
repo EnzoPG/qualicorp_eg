@@ -21,11 +21,18 @@ module.exports = (app) => {
     const getCli = async (req, res) => {
         await app.db.find()
             .then(clis => {
-                res.send({
-                    status: 1,
-                    mensagem: "Sucesso!",
-                    Clients: clis
-                })
+                if(clis.length > 0) {
+                    res.send({
+                        status: 1,
+                        mensagem: "Sucesso!",
+                        Clients: clis
+                    })
+                } else {
+                    res.send({
+                        status: 2,
+                        mensagem: "Sem clientes cadatrados!"
+                    })
+                }
             })
             .catch(err => {
                 res.send({
@@ -126,12 +133,36 @@ module.exports = (app) => {
                 number,
                 documento
             } = req.body
+            // Valida o e-mail
+            if (!validateEmail(email)) {
+                return res.send({
+                    status: 2,
+                    mensagem: 'E-mail não é válido!'
+                })
+            }
 
+            // Valida se os dados existem realmente
+            if(Object.keys(req.body).length === 0 || !idade || !nome || !email || !number || !documento) {
+                return res.send({
+                    status: 2,
+                    mensagem: 'Preencha todos os campos!'
+                })
+            }
+
+            // Tratativas das informações
+            var age = (typeof idade !== 'undefined') ?? parseInt(idade)
+            // regex para pontuações
+            var regex = /[^a-zA-Z0-9]/g
+            // Adiciona tratativas para salvar o dado sem pontuações
+            var num = (typeof number !== 'undefined') ?? number.replace(regex, "")
+            var doc = (typeof documento !== 'undefined') ?? documento.replace(regex, "")
+
+            // Seta os novos dados
             client.nome = nome
             client.email = email
-            client.idade = idade
-            client.number = number
-            client.documento = documento
+            client.idade = age
+            client.number = num
+            client.documento = doc
             
             try {
                 await client.save()

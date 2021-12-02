@@ -4,7 +4,7 @@ const db = require('./configs/db')
 const consign = require('consign')
 const express = require('express')
 const app = express()
-let port = 4800
+let port = 8100
 
 consign({
     cwd: __dirname,
@@ -25,10 +25,10 @@ app.db = db
 if (process.env.NODE_ENV === 'production') {
     console.log('Rodando em produção..')
     // Serve any static files
-    app.use(express.static(path.join(__dirname, '../dist/front-end')))
+    app.use(express.static(path.join(__dirname, '../../frontend')))
     // Handle React routing, return all requests to React App
     app.get('/*', function (req, res) {
-        res.sendFile(path.join(__dirname, '../dist/front-end', 'index.html'))
+        res.sendFile(path.join(__dirname, '../../frontend', 'index.html'))
     })
 
     https.createServer({}, app).listen(port)
