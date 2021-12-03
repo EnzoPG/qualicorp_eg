@@ -118,68 +118,84 @@ module.exports = (app) => {
     const updateCli = (req, res) => {
         // Armazena a variável ID (QUERY)
         var ID = req.query.clientID
+
+        if(!ID) {
+            return res.send({
+                status: 0,
+                mensagem: "Favor informar o ID!"
+            })
+        }
+
+        // Descontrói o objeto body para armazenar as variáveis
+        const {
+            nome,
+            email,
+            idade,
+            number,
+            documento
+        } = req.body
+
+        // Valida se os dados existem realmente
+        if(Object.keys(req.body).length === 0) {
+            return res.send({
+                status: 2,
+                mensagem: 'Preencha pelo menos 1 campo!'
+            })
+        }
   
-        app.db.findById(ID, async function(err, client) {
-            if (err) {
-               return res.send({
-                   status: 0,
-                   mensagem: "Cliente não encontrado!"
-               })
-            }
-            // Descontrói o objeto body para armazenar as variáveis
-            const {
-                nome,
-                email,
-                idade,
-                number,
-                documento
-            } = req.body
-            // Valida o e-mail
-            if (!validateEmail(email)) {
-                return res.send({
-                    status: 2,
-                    mensagem: 'E-mail não é válido!'
-                })
-            }
-
-            // Valida se os dados existem realmente
-            if(Object.keys(req.body).length === 0) {
-                return res.send({
-                    status: 2,
-                    mensagem: 'Preencha pelo menos 1 campo!'
-                })
-            }
-
-            // Tratativas das informações
-            var age = (typeof idade !== 'undefined') ? parseInt(idade) : false
-            // regex para pontuações
-            var regex = /[^a-zA-Z0-9]/g
-            // Adiciona tratativas para salvar o dado sem pontuações
-            var num = (typeof number !== 'undefined') ? number.replace(regex, "") : false
-            var doc = (typeof documento !== 'undefined') ? documento.replace(regex, "") : false
-
-            // Seta os novos dados
-            client.nome = nome
-            client.email = email
-            client.idade = age
-            client.number = num
-            client.documento = doc
-            
-            try {
-                await client.save()
-
-                res.send({
-                    status: 1,
-                    mensagem: "Dados atualizados!"
-                })
-            } catch (error) {
-                res.send({
-                    status: 0,
-                    err: error,
-                    mensagem: "Ocorreu um erro ao salvar as informações!"
-                })
-            }
-        })
+        try {
+            app.db.findById(ID, async function(err, client) {
+                if (err) {
+                   return res.send({
+                       status: 0,
+                       mensagem: "Cliente não encontrado!"
+                   })
+                }
+                
+                // Valida o e-mail
+                if (!validateEmail(email)) {
+                    return res.send({
+                        status: 2,
+                        mensagem: 'E-mail não é válido!'
+                    })
+                }
+    
+                // Tratativas das informações
+                var age = (typeof idade !== 'undefined') ? parseInt(idade) : false
+                // regex para pontuações
+                var regex = /[^a-zA-Z0-9]/g
+                // Adiciona tratativas para salvar o dado sem pontuações
+                var num = (typeof number !== 'undefined') ? number.replace(regex, "") : false
+                var doc = (typeof documento !== 'undefined') ? documento.replace(regex, "") : false
+    
+                // Seta os novos dados (Se existirem)
+                if(nome) client.nome = nome
+                if(idade) client.idade = age
+                if(email) client.email = email
+                if(number) client.number = num
+                if(documento) client.documento = doc
+                
+                try {
+                    await client.save()
+    
+                    res.send({
+                        status: 1,
+                        mensagem: "Dados atualizados!"
+                    })
+                } catch (error) {
+                    res.send({
+                        status: 0,
+                        err: error,
+                        mensagem: "Ocorreu um erro ao salvar as informações!"
+                    })
+                }
+            })
+        } catch (error) {
+            res.send({
+                status: 0,
+                mensagem: error.message
+            })
+        }
     }
 
     /**
