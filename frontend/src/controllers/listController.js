@@ -1,4 +1,4 @@
-import environments from "../environments/environments";
+import environments from "../environments/environments"
 
 export default {
     name: "List",
@@ -31,6 +31,9 @@ export default {
 
             return `${count} cliente${plural} selecionado${plural}`
         },
+        checkSizeSelected() {
+            return this.selected.length
+        }
     },
     mounted() {
         this.fetchData()

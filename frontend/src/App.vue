@@ -3,24 +3,14 @@
     <List />
     <!-- FAB BTN -->
     <div class="fabDiv">
-      <md-button class="md-fab fab" :md-ripple="false">
+      <md-button class="md-fab fab" :md-ripple="false" @click="openModalToCreate">
         <md-icon>add</md-icon>
       </md-button>
     </div>
   </div>
 </template>
 
-<script>
-
-import List from './components/List.vue'
-
-export default {
-  name: "App",
-  components: {
-    List
-  },
-};
-</script>
+<script src="./controllers/mainController.js"></script>
 
 <style>
 #app {

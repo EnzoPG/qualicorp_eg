@@ -4,12 +4,13 @@
  * @returns {boolean}
  */
 const validateEmail = (email) => {
+
+    var regex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
+
     return String(email)
         .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-};
+        .match(regex) ? true : false
+}
 
 module.exports = (app) => {
     /**
@@ -75,12 +76,12 @@ module.exports = (app) => {
         }
 
         // Tratativas das informações
-        var age = (typeof idade !== 'undefined') ?? parseInt(idade)
+        var age = (typeof idade !== 'undefined') ? parseInt(idade) : false
         // regex para pontuações
         var regex = /[^a-zA-Z0-9]/g
         // Adiciona tratativas para salvar o dado sem pontuações
-        var num = (typeof number !== 'undefined') ?? number.replace(regex, "")
-        var doc = (typeof documento !== 'undefined') ?? documento.replace(regex, "")
+        var num = (typeof number !== 'undefined') ? number.replace(regex, "") : false
+        var doc = (typeof documento !== 'undefined') ? documento.replace(regex, "") : false
 
         try {
             // Construindo objeto completo com as informações a serem salvas
@@ -142,20 +143,20 @@ module.exports = (app) => {
             }
 
             // Valida se os dados existem realmente
-            if(Object.keys(req.body).length === 0 || !idade || !nome || !email || !number || !documento) {
+            if(Object.keys(req.body).length === 0) {
                 return res.send({
                     status: 2,
-                    mensagem: 'Preencha todos os campos!'
+                    mensagem: 'Preencha pelo menos 1 campo!'
                 })
             }
 
             // Tratativas das informações
-            var age = (typeof idade !== 'undefined') ?? parseInt(idade)
+            var age = (typeof idade !== 'undefined') ? parseInt(idade) : false
             // regex para pontuações
             var regex = /[^a-zA-Z0-9]/g
             // Adiciona tratativas para salvar o dado sem pontuações
-            var num = (typeof number !== 'undefined') ?? number.replace(regex, "")
-            var doc = (typeof documento !== 'undefined') ?? documento.replace(regex, "")
+            var num = (typeof number !== 'undefined') ? number.replace(regex, "") : false
+            var doc = (typeof documento !== 'undefined') ? documento.replace(regex, "") : false
 
             // Seta os novos dados
             client.nome = nome

@@ -6,9 +6,6 @@ export default () => {
     // Define os parâmetros necessários para a instância
     options.timeout = 10000
     options.baseURL = environment.development.baseURL
-    options.headers = {
-        'Content-Type': 'application/json'
-    }
     // Cria e retorna a instância
     const instance = this.$axios.create(options)
     return instance

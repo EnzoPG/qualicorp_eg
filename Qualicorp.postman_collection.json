@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "2bd8998e-fd1b-4279-a911-381f0c115f5c",
+		"name": "Qualicorp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Development",
+			"item": [
+				{
+					"name": "Buscar Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8100/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar  Clientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Teste user\",\n    \"idade\": \"31\",\n    \"email\": \"testeuser@gmail.com\",\n    \"number\": \"12987654321\",\n    \"documento\": \"897652341\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8100/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cliente",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Teste user\",\n    \"idade\": \"31\",\n    \"email\": \"testeuser@gmail.com\",\n    \"number\": \"12987654321\",\n    \"documento\": \"897652341\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8100/clients?clientID=61a81b5b6415346f8ad82c42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "clientID",
+									"value": "61a81b5b6415346f8ad82c42"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8100/clients?clientID=61a81b5b6415346f8ad82c42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8100",
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "clientID",
+									"value": "61a81b5b6415346f8ad82c42"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Production",
+			"item": [
+				{
+					"name": "Buscar Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://qualicorp.enzogerola.com/clients",
+							"protocol": "https",
+							"host": [
+								"qualicorp",
+								"enzogerola",
+								"com"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar  Clientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Teste user\",\n    \"idade\": \"31\",\n    \"email\": \"testeuser@gmail.com\",\n    \"number\": \"12987654321\",\n    \"documento\": \"897652341\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qualicorp.enzogerola.com/clients",
+							"protocol": "https",
+							"host": [
+								"qualicorp",
+								"enzogerola",
+								"com"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cliente",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Teste user\",\n    \"idade\": \"31\",\n    \"email\": \"testeuser@gmail.com\",\n    \"number\": \"12987654321\",\n    \"documento\": \"897652341\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qualicorp.enzogerola.com/clients?clientID=61a81b5b6415346f8ad82c42",
+							"protocol": "https",
+							"host": [
+								"qualicorp",
+								"enzogerola",
+								"com"
+							],
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "clientID",
+									"value": "61a81b5b6415346f8ad82c42"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://qualicorp.enzogerola.com/clients?clientID=61a81b5b6415346f8ad82c42",
+							"protocol": "https",
+							"host": [
+								"qualicorp",
+								"enzogerola",
+								"com"
+							],
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "clientID",
+									"value": "61a81b5b6415346f8ad82c42"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
