@@ -29,6 +29,11 @@ npm run serve
 cd backend/src/ npm run serve
 ```
 
+## Coolection (POSTMAN)
+```
+/Docs/Qualicorp.postman_collection.json
+```
+
 ## Deploy
 ```
 cd frontend/ npm run build
