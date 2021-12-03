@@ -9,10 +9,7 @@ export default {
   },
   methods: {
     openModalToCreate() {
-      this.$modal.show(Dialog, {
-        title: 'Preencha todos os campos!',
-        message: 'Nome'
-      }).then(async resp => {
+      this.$modal.show(Dialog).then(async resp => {
         if(parseInt(resp.status) === parseInt('1')) {
           await this.$axios.post(`${environment.development.baseURL}clients`, JSON.stringify(resp), {
             headers : {
@@ -29,7 +26,8 @@ export default {
             }
           })
           .catch(err => {
-            this.$alert(`${err}`)
+            console.log(err)
+            this.$alert('Erro ao enviar os dados para o servidor...')
           })
         } else {
           this.$alert('Ocorreu um problema ao processar a requisição...')

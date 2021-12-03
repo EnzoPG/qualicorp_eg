@@ -1,25 +1,32 @@
 <template>
   <div>
-    <md-modal-dialog>
-      <md-dialog-title> Cadastrar Cliente </md-dialog-title>
+    <md-modal-dialog v-slot="{ client }">
+      <md-dialog-title>
+        Identificação do Cliente: {{ client._id }}
+      </md-dialog-title>
 
       <md-dialog-content>
         <!-- Nome -->
         <md-field>
           <label>Nome: </label>
-          <md-input type="text" v-model="nome" name="nome" />
+          <md-input type="text" v-model="client.nome" name="nome" />
         </md-field>
 
         <!-- E-mail -->
         <md-field>
           <label>E-mail: </label>
-          <md-input type="email" v-model="email" nome="email" />
+          <md-input type="email" v-model="client.email" name="email" />
         </md-field>
 
         <!-- Idade -->
         <md-field>
           <label>Idade: </label>
-          <md-input type="number" v-model="idade" nome="idade" v-mask="'###'" />
+          <md-input
+            type="number"
+            v-model="client.idade"
+            name="idade"
+            v-mask="'###'"
+          />
         </md-field>
 
         <!-- Telefone / Celular -->
@@ -27,8 +34,8 @@
           <label>Telefone / Celular: </label>
           <md-input
             type="text"
-            v-model="number"
-            nome="number"
+            v-model="client.number"
+            name="number"
             v-mask="['(##) ####-####', '(##) #####-####']"
           />
         </md-field>
@@ -38,15 +45,15 @@
           <label>Documento (CPF / CNPJ): </label>
           <md-input
             type="text"
-            v-model="documento"
-            nome="documento"
+            v-model="client.documento"
+            name="documento"
             v-mask="['###.###.###-##', '##.###.###/####-##']"
           />
         </md-field>
       </md-dialog-content>
 
       <md-dialog-actions>
-        <md-button @click="getFormValues">Enviar</md-button>
+        <md-button @click="getFormValues(client)">Enviar</md-button>
         <md-button @click="$modal.cancel({ status: 0 })">Cancelar</md-button>
       </md-dialog-actions>
     </md-modal-dialog>
@@ -55,40 +62,34 @@
 
 <script>
 export default {
-  name: "Dialog",
-  data: () => ({
-    nome: "",
-    email: "",
-    idade: "",
-    number: "",
-    formData: {},
-    documento: "",
-    showDialog: false,
-  }),
+  name: "DialogUp",
+  props: {
+    client: Object,
+  },
   methods: {
-    getFormValues() {
+    getFormValues(clientData) {
       // Validando os inputs
       if (
-        !this.nome ||
-        !this.email ||
-        !this.idade ||
-        !this.number ||
-        !this.documento
+        !clientData.nome ||
+        !clientData.email ||
+        !clientData.idade ||
+        !clientData.number ||
+        !clientData.documento
       ) {
         // Retorna o alerta
-        return this.$modal.submit({ status: 0 });
+        return this.$modal.submit({ status: 0 })
       }
 
-      this.formData = {
+      var formData = {
         status: 1,
-        nome: this.nome,
-        email: this.email,
-        idade: this.idade,
-        number: this.number,
-        documento: this.documento,
+        nome: clientData.nome,
+        email: clientData.email,
+        idade: clientData.idade,
+        number: clientData.number,
+        documento: clientData.documento,
       };
 
-      return this.$modal.submit(this.formData);
+      return this.$modal.submit(formData)
     },
   },
 };

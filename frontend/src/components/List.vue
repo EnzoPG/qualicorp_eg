@@ -12,7 +12,7 @@
         @md-selected="onSelect"
         md-sort="nome"
         md-sort-order="asc"
-        :v-if="people.length != 0"
+        v-if="people.length >= 1"
       >
         <md-table-toolbar>
           <h1 class="md-title">Lista de Clientes</h1>
@@ -27,11 +27,15 @@
           </div>
           <div class="md-toolbar-section-end">
             <!-- EDIT -->
-            <md-button class="md-icon-button">
+            <md-button
+              class="md-icon-button"
+              @click="editClient"
+              v-if="selected.length <= 1"
+            >
               <md-icon>edit</md-icon>
             </md-button>
             <!-- DELETE -->
-            <md-button class="md-icon-button">
+            <md-button class="md-icon-button" @click="deleteClient">
               <md-icon>delete</md-icon>
             </md-button>
           </div>
