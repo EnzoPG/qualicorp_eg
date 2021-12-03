@@ -30,7 +30,8 @@ export default {
             this.$alert('Erro ao enviar os dados para o servidor...')
           })
         } else {
-          this.$alert('Ocorreu um problema ao processar a requisição...')
+          console.log(resp)
+          this.$alert(resp.message)
         }
       })
       .catch(err => {

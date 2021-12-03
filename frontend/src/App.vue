@@ -32,15 +32,16 @@ body {
 }
 
 .fabDiv {
-  margin-top: 20vh;
+  /* margin-top: 20vh;
   margin-bottom: 5%;
-  margin-right: 5%;
+  margin-right: 5%; */
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
 
 .fab {
-  background-color: darkgreen !important;
-  position: absolute;
-  float: right;
+  background-color: mediumseagreen !important;
 }
 
 /* Mobile */

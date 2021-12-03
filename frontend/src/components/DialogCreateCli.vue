@@ -47,7 +47,10 @@
 
       <md-dialog-actions>
         <md-button @click="getFormValues">Enviar</md-button>
-        <md-button @click="$modal.cancel({ status: 0 })">Cancelar</md-button>
+        <md-button @click="$modal.cancel({ 
+          status: 0,
+          message: 'Operação não executada!'
+        })">Cancelar</md-button>
       </md-dialog-actions>
     </md-modal-dialog>
   </div>
@@ -73,10 +76,16 @@ export default {
         !this.email ||
         !this.idade ||
         !this.number ||
-        !this.documento
+        !this.number.length < 14 ||
+        !this.documento ||
+        !this.documento.length !== 14 || 
+        !this.documento.length !== 18
       ) {
         // Retorna o alerta
-        return this.$modal.submit({ status: 0 });
+        return this.$modal.submit({ 
+          status: 0,
+          message: 'Operação não executada!'
+        });
       }
 
       this.formData = {

@@ -35,7 +35,10 @@
               <md-icon>edit</md-icon>
             </md-button>
             <!-- DELETE -->
-            <md-button class="md-icon-button" @click="deleteClient">
+            <md-button
+              class="md-icon-button"
+              @click="deleteClient(selected[0]._id)"
+            >
               <md-icon>delete</md-icon>
             </md-button>
           </div>
@@ -64,6 +67,16 @@
           }}</md-table-cell>
         </md-table-row>
       </md-table>
+
+      <!-- EMPTY -->
+      <div v-if="emptyState">
+        <md-empty-state
+          md-icon="devices_other"
+          md-label="Sem informações por aqui..."
+          md-description="Tente adicionar novos clientes clicando no botão verde abaixo."
+        >
+        </md-empty-state>
+      </div>
     </div>
   </div>
 </template>

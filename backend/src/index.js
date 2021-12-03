@@ -1,3 +1,4 @@
+const fs = require('fs')
 const http = require('http')
 const path = require('path')
 const db = require('./configs/db')
@@ -31,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname, '../../frontend', 'index.html'))
     })
 
-    https.createServer({}, app).listen(port)
+    http.createServer({}, app).listen(port)
 } else {
     http.createServer({}, app).listen(port)
 }
