@@ -13,13 +13,13 @@
         <!-- E-mail -->
         <md-field>
           <label>E-mail: </label>
-          <md-input type="email" v-model="email" nome="email" />
+          <md-input type="email" v-model="email" name="email" />
         </md-field>
 
         <!-- Idade -->
         <md-field>
           <label>Idade: </label>
-          <md-input type="number" v-model="idade" nome="idade" v-mask="'###'" />
+          <md-input type="number" v-model="idade" name="idade" v-mask="['##', '###']" />
         </md-field>
 
         <!-- Telefone / Celular -->
@@ -28,7 +28,7 @@
           <md-input
             type="text"
             v-model="number"
-            nome="number"
+            name="number"
             v-mask="['(##) ####-####', '(##) #####-####']"
           />
         </md-field>
@@ -39,7 +39,7 @@
           <md-input
             type="text"
             v-model="documento"
-            nome="documento"
+            name="documento"
             v-mask="['###.###.###-##', '##.###.###/####-##']"
           />
         </md-field>
@@ -72,19 +72,30 @@ export default {
     getFormValues() {
       // Validando os inputs
       if (
-        !this.nome ||
+        (!this.nome ||
         !this.email ||
         !this.idade ||
         !this.number ||
-        !this.number.length < 14 ||
-        !this.documento ||
-        !this.documento.length !== 14 || 
-        !this.documento.length !== 18
+        this.number.length < 14 ||
+        !this.documento) ||
+        (this.documento.length != 14 && this.documento.length != 18)
       ) {
+        console.log({
+          client: {
+            nome: this.nome,
+            email: this.email,
+            idade: this.idade,
+            number: this.number,
+            documento: this.documento,
+            validation1: this.number.length < 14,
+            validation2: this.documento.length != 14,
+            validation3: this.documento.length != 18
+          }
+        });
         // Retorna o alerta
         return this.$modal.submit({ 
           status: 0,
-          message: 'Operação não executada!'
+          message: 'Dados não preenchidos da forma correta!'
         });
       }
 

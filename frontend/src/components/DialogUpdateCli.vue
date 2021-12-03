@@ -25,7 +25,7 @@
             type="number"
             v-model="client.idade"
             name="idade"
-            v-mask="'###'"
+            v-mask="['##', '###']"
           />
         </md-field>
 
@@ -73,19 +73,18 @@ export default {
     getFormValues(clientData) {
       // Validando os inputs
       if (
-        !clientData.nome ||
+        (!clientData.nome ||
         !clientData.email ||
         !clientData.idade ||
         !clientData.number ||
-        !clientData.number.length < 14 ||
-        !clientData.documento ||
-        !clientData.documento.length !== 14 ||
-        !clientData.documento.length !== 18
+        clientData.number.length < 14 ||
+        !clientData.documento) ||
+        (clientData.documento.length != 14 && clientData.documento.length != 18)
       ) {
         // Retorna o alerta
         return this.$modal.submit({ 
           status: 0,
-          message: 'Operação não executada!'
+          message: 'Dados não preenchidos da forma correta!'
         });
       }
 
